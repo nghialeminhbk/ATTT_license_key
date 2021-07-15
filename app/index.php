@@ -4,12 +4,12 @@
  <title>Index Page</title>
 </head>
 <body>
- <?php
- $secret_code = 'nghiatitan'; // ma bi mat xac dinh cho moi
- $time_created = '2021-07-12 11:41:52';
- $username = 'username'; // username cua nguoi do
- $password = 'password'; // password nguoi do da dang ki
-
+<?php
+$secret_code = 'nghiatitan'; // ma bi mat xac dinh cho moi
+$time_created = '2021-07-12 11:41:52'; // ngay tao dang ki
+$username = 'username'; // username cua nguoi do
+$password = 'password'; // password nguoi do da dang ki
+$ip = '::1'; // ip nguoi dung da dang ki
 function decrypt($ivHashCiphertext, $password) {
     $method = "AES-256-CBC";
     $iv = substr($ivHashCiphertext, 0, 16);
@@ -21,9 +21,9 @@ function decrypt($ivHashCiphertext, $password) {
 
     return openssl_decrypt($ciphertext, $method, $key, OPENSSL_RAW_DATA, $iv);
 }
- $license_hash_compare = sha1($username.$password.$time_created.$secret_code);
+ $license_hash_compare = sha1($username.$password.$time_created.$secret_code.$ip);
 
- $lisfile = $username.sha1($password).'.key';
+ $lisfile = sha1($username.$password).'.key';
 
 // kiem tra file ton tai
  if(!file_exists(__DIR__.'/'.$lisfile))
